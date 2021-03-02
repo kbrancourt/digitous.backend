@@ -13,6 +13,8 @@ app.get("/", (request, response) =>{
     response.send("Authors API")
 });
 
+//afficher les auteurs+nationalités
+
 app.get("/authors/:id/", (request, response) =>{
     // if (request.params.id === "1") {
     //     response.send("Lawrence Nowell, UK");
@@ -41,7 +43,7 @@ app.get("/authors/:id/", (request, response) =>{
         case "4" :
             response.send("Oscar Wilde, UK");
             break;
-        case "12133":
+        case "12133": //message d'erreur qd l'auteur n'est pas défini
             response.send("The author with the ID 12133 does not exist");
         default:
             response.send("Authors API")
@@ -49,7 +51,7 @@ app.get("/authors/:id/", (request, response) =>{
 })  
 
 
-
+//afficher les livres par auteur
 app.get("/authors/:id/books/", (request, response) =>{
     const id = request.params.id;
     switch (id){
@@ -70,6 +72,27 @@ app.get("/authors/:id/books/", (request, response) =>{
     }
 });
 
+//message d'erreur qd les routes n'existent pas
 app.get("/cars/", (request, response) => {
     response.send("Error");
 })
+
+//créer une variable contenant les auteurs + les livres
+// et melangeant des arrays et des objets
+
+///méthode de réponse : res.json() 	Envoie une réponse JSON.
+//res.jsonp({ user: 'tobi' })
+// => callback({ "user": "tobi" })
+
+
+app.get("/json/authors/:id", (request, response) => {
+    response.json(konexio[request.params.id])
+})
+let booksList = [   
+    { author: "Lawrence Nowell", nationality:"UK", books:"Beowulf"},
+    { author: "William Shakespeare", nationality:"UK",books:"Hamlet, Othello, Romeo and Juliet, MacBeth"},
+    { author: "Charles Dicken", nationality:"US", book:"Oliver Twist, A Christmas Carol"},
+    { author: "Oscar Wilde", nationality:"UK", books:"The Picture of Dorian Gray, The Importance of Being Earnest"},
+
+]
+
